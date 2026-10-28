@@ -2,6 +2,7 @@ import { strict as assert } from 'node:assert';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, it } from 'node:test';
 import { findLocalTimeUsage } from '../scripts/check-time-usage.mjs';
 
@@ -25,6 +26,6 @@ describe('CI check for server-local date methods (TT6 AC2)', () => {
   });
 
   it('finds nothing in the shared library itself', () => {
-    assert.deepEqual(findLocalTimeUsage([new URL('../src', import.meta.url).pathname]), []);
+    assert.deepEqual(findLocalTimeUsage([fileURLToPath(new URL('../src', import.meta.url))]), []);
   });
 });
